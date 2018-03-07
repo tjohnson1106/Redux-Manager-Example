@@ -24,7 +24,8 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          To get started, edit <code>src/App.js</code> and save to
+          reload.
         </p>
         <input onChange={this.onUpdateUser} />
         {this.props.user}
@@ -42,20 +43,8 @@ const mapStateToProps = (state, props) => {
 };
 
 //need to explicitly bind dispatch - bindActionCreators
-const mapActionsToProps = (dispatch, props) => {
-  console.log(props);
-
-  return bindActionCreators(
-    {
-      onUpdateUser: updateUser
-    },
-    dispatch
-  );
+const mapActionsToProps = {
+  onUpdateUser: updateUser
 };
 
-const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
-  console.log(propsFromState, propsFromDispatch, ownProps);
-  return {};
-};
-
-export default connect(mapStateToProps, mapActionsToProps, mergeProps)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);

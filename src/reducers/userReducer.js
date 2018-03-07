@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 import { UPDATE_USER } from "../actions/userActions";
 
 export default function userReducer(state = "", { type, payload }) {
@@ -7,4 +9,18 @@ export default function userReducer(state = "", { type, payload }) {
     default:
       return state;
   }
+}
+
+export function apiRequest() {
+  return dispatch => {
+    $.ajax({
+      url: "http://google.com",
+      success() {
+        console.log("success!");
+      },
+      error() {
+        console.log("error!");
+      }
+    });
+  };
 }
