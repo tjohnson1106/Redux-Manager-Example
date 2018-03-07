@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import { connect } from "react-redux";
 import { updateUser, apiRequest } from "./actions/userActions";
 import { bindActionCreators } from "redux";
+import { createSelector } from "reselect";
 
 import "./App.css";
 
@@ -11,12 +12,6 @@ class App extends Component {
     super(props);
 
     this.onUpdateUser = this.onUpdateUser.bind(this);
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.props.onApiRequest();
-    }, 1500);
   }
 
   onUpdateUser(event) {
@@ -40,13 +35,25 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    products: state.products,
-    user: state.user,
-    userPlusProps: `${state.user} ${props.aRandomProps}`
-  };
-};
+const productsSelector = createSelector(
+  state => state.products,
+  products => products
+);
+
+const userSelector = createSelector(
+  state => state.products,
+  user => user
+);
+
+const mapStateToProps = createSelector(
+  productsSelector,
+  userSelector,
+  state => state.user,
+  (products, user) => ({
+    products,
+    user
+  })
+);
 
 //need to explicitly bind dispatch - bindActionCreators
 const mapActionsToProps = {
