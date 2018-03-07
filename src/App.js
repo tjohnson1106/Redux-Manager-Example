@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import { connect } from "react-redux";
-import { updateUser } from "./actions/userActions";
+import { updateUser, apiRequest } from "./actions/userActions";
 import { bindActionCreators } from "redux";
 
 import "./App.css";
@@ -11,6 +11,12 @@ class App extends Component {
     super(props);
 
     this.onUpdateUser = this.onUpdateUser.bind(this);
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.onApiRequest();
+    }, 1500);
   }
 
   onUpdateUser(event) {
@@ -44,7 +50,8 @@ const mapStateToProps = (state, props) => {
 
 //need to explicitly bind dispatch - bindActionCreators
 const mapActionsToProps = {
-  onUpdateUser: updateUser
+  onUpdateUser: updateUser,
+  onApiRequest: apiRequest
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(App);
