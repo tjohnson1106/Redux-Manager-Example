@@ -1,22 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import registerServiceWorker from "./registerServiceWorker";
+import { combineReducers, createStore } from "redux";
+import { Provider } from "react-redux";
+
 import "./index.css";
 import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
-
-import { combineReducers, createStore } from "redux";
-
-function productsReducer(state = [], action) {
-  return state;
-}
-
-function userReducer(state = "", action) {
-  switch (action.type) {
-    case "updateUser":
-      return action.payload;
-  }
-  return state;
-}
+import productsReducer from "./reducers/productsReducer";
+import userReducer from "./reducers/userReducer";
 
 const allReducers = combineReducers({
   products: productsReducer,
@@ -32,16 +23,10 @@ const store = createStore(
   window.devToolsExtension && window.devToolsExtension()
 );
 
-console.log(store.getState());
-
-const updateUserAction = {
-  type: "updateUser",
-  payload: {
-    user: "Amy"
-  }
-};
-
-store.dispatch(updateUserAction);
-
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
